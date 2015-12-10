@@ -20,6 +20,8 @@ public class IllusionGame extends ApplicationAdapter {
 	private Rectangle face;
 	private int faceSpeed;
 	Texture faceImage;
+
+	private boolean pause = false;
 	
 	@Override
 	public void create () {
@@ -49,10 +51,12 @@ public class IllusionGame extends ApplicationAdapter {
 		batch.draw(faceImage, face.x, face.y); //рисуем рожицу
 		batch.end();
 
-		if(Gdx.input.isKeyPressed(Keys.LEFT)) face.x -= faceSpeed * Gdx.graphics.getDeltaTime();
-		if(Gdx.input.isKeyPressed(Keys.RIGHT)) face.x += faceSpeed * Gdx.graphics.getDeltaTime();
-		if(Gdx.input.isKeyPressed(Keys.UP)) face.y += faceSpeed * Gdx.graphics.getDeltaTime();
-		if(Gdx.input.isKeyPressed(Keys.DOWN)) face.y -= faceSpeed * Gdx.graphics.getDeltaTime();
+		if(!pause) {
+			if (Gdx.input.isKeyPressed(Keys.LEFT)) face.x -= faceSpeed * Gdx.graphics.getDeltaTime();
+			if (Gdx.input.isKeyPressed(Keys.RIGHT)) face.x += faceSpeed * Gdx.graphics.getDeltaTime();
+			if (Gdx.input.isKeyPressed(Keys.UP)) face.y += faceSpeed * Gdx.graphics.getDeltaTime();
+			if (Gdx.input.isKeyPressed(Keys.DOWN)) face.y -= faceSpeed * Gdx.graphics.getDeltaTime();
+		}
 	}
 
 	public void moveFace(int x, int y){
@@ -61,5 +65,13 @@ public class IllusionGame extends ApplicationAdapter {
 		camera.unproject(movePos);
 		face.x = movePos.x - (face.width/2);
 		face.y = movePos.y - (face.height/2);
+	}
+
+	public void setPause(boolean pauseToSet){
+		pause = pauseToSet;
+	}
+
+	public boolean getPause(){
+		return pause;
 	}
 }

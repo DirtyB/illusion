@@ -21,5 +21,13 @@ public class IllusionInputAdapter extends InputAdapter {
         return true; // return true to indicate the event was handled
     }
 
+    @Override
+    public boolean keyDown (int keycode) {
+        if(keycode == Input.Keys.ESCAPE) {
+            game.setPause(!game.getPause());
+        }
+        return true; // return true to indicate the event was handled
+    }
+
 
 }
