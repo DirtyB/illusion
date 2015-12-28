@@ -17,9 +17,7 @@ public class IllusionGame extends ApplicationAdapter {
 	private OrthographicCamera camera;
 	SpriteBatch batch;
 
-	private Rectangle face;
-	private int faceSpeed;
-	Texture faceImage;
+	public Character[] characters;
 
 	private boolean pause = false;
 	
@@ -29,14 +27,15 @@ public class IllusionGame extends ApplicationAdapter {
 		camera.setToOrtho(false, screenWidth, screenHeight); //инициализируем размеры игрового поля
 		batch = new SpriteBatch();
 
-		face = new Rectangle();
-		face.width = 64;
-		face.height = 64;
-		face.x = (screenWidth-face.width)/2;
-		face.y = (screenHeight-face.height)/2;
-		faceSpeed = 500;
+		int enemyCount = 3;
 
-		faceImage = new Texture("core/assets/face.png"); //загружаем картинку
+		characters = new Character[enemyCount+1];
+
+		characters[0] = new Face(this,screenWidth/2,screenHeight/2);
+
+		for(int i = 1; i< enemyCount+1; i++){
+			characters[i] = new Enemy(this, i*80, i*100);
+		}
 
 		Gdx.input.setInputProcessor(new IllusionInputAdapter(this));
 	}
@@ -48,23 +47,45 @@ public class IllusionGame extends ApplicationAdapter {
 
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
-		batch.draw(faceImage, face.x, face.y); //рисуем рожицу
+		for(int i = 0; i<characters.length;i++){
+			characters[i].draw(batch);
+		}
 		batch.end();
 
 		if(!pause) {
-			if (Gdx.input.isKeyPressed(Keys.LEFT)) face.x -= faceSpeed * Gdx.graphics.getDeltaTime();
-			if (Gdx.input.isKeyPressed(Keys.RIGHT)) face.x += faceSpeed * Gdx.graphics.getDeltaTime();
-			if (Gdx.input.isKeyPressed(Keys.UP)) face.y += faceSpeed * Gdx.graphics.getDeltaTime();
-			if (Gdx.input.isKeyPressed(Keys.DOWN)) face.y -= faceSpeed * Gdx.graphics.getDeltaTime();
+			for(int i = 0; i<characters.length;i++){
+				characters[i].update();
+			}
+			for(int i = 1; i<characters.length;i++){
+				if(characters[0].overlaps(characters[i])){
+					gameOver();
+				}
+			}
 		}
+	}
+
+	public void gameOver(){
+		pause();
+	}
+
+	public Character getFace(){
+		return characters[0];
 	}
 
 	public void moveFace(int x, int y){
 		Vector3 movePos = new Vector3();
 		movePos.set(x, y, 0);
 		camera.unproject(movePos);
+		Character face = getFace();
 		face.x = movePos.x - (face.width/2);
 		face.y = movePos.y - (face.height/2);
+	}
+
+	public void pause(){
+		setPause(true);
+	}
+	public void resume(){
+		setPause(false);
 	}
 
 	public void setPause(boolean pauseToSet){
