@@ -27,7 +27,7 @@ abstract public class Character extends Rectangle {
     }
 
     public void draw(SpriteBatch batch){
-        batch.draw(image, x, y); //рисуем рожицу
+        batch.draw(image, x, y); //СЂРёСЃСѓРµРј СЂРѕР¶РёС†Сѓ
     }
 
     abstract public void update();

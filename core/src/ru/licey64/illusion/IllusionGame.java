@@ -24,7 +24,7 @@ public class IllusionGame extends ApplicationAdapter {
 	@Override
 	public void create () {
 		camera = new OrthographicCamera();
-		camera.setToOrtho(false, screenWidth, screenHeight); //инициализируем размеры игрового поля
+		camera.setToOrtho(false, screenWidth, screenHeight); //РёРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј СЂР°Р·РјРµСЂС‹ РёРіСЂРѕРІРѕРіРѕ РїРѕР»СЏ
 		batch = new SpriteBatch();
 
 		int enemyCount = 3;
@@ -42,7 +42,7 @@ public class IllusionGame extends ApplicationAdapter {
 
 	@Override
 	public void render() {
-		Gdx.gl.glClearColor(0.5f, 0.5f, 0.5f, 1); //цвет фона
+		Gdx.gl.glClearColor(0.5f, 0.5f, 0.5f, 1); //С†РІРµС‚ С„РѕРЅР°
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		batch.setProjectionMatrix(camera.combined);

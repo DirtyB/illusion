@@ -12,7 +12,7 @@ public class Enemy extends Character {
     Enemy(IllusionGame game, int x_center, int y_center) {
         super(game,x_center,y_center);
 
-        image = new Texture("core/assets/enemy.png"); //загружаем картинку
+        image = new Texture("enemy.png"); //Р·Р°РіСЂСѓР¶Р°РµРј РєР°СЂС‚РёРЅРєСѓ
 
         speed = 300;
     }

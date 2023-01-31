@@ -12,7 +12,7 @@ public class Face extends Character {
     Face(IllusionGame game, int x_center, int y_center) {
         super(game,x_center,y_center);
 
-        image = new Texture("core/assets/face.png"); //загружаем картинку
+        image = new Texture("face.png"); //Р·Р°РіСЂСѓР¶Р°РµРј РєР°СЂС‚РёРЅРєСѓ
 
         speed = 500;
 
